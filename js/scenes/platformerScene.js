@@ -1,6 +1,6 @@
-define(['crafty'], function(Crafty) {
+define(['crafty', '../actors/player'], function(Crafty, player) {
   Crafty.defineScene('Platformer', function() {
-    Crafty.e('2D, DOM, Color').attr({x: 0, y: 0, w: 100, h: 100}).color('#F00');
+    player.create();
   });
 
   return {
