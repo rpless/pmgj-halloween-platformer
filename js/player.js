@@ -8,7 +8,7 @@ define(['crafty', 'costume'], function(Crafty) {
 
   return {
     create: function(type) {
-      var player = Crafty.e('2D, Canvas, Color, Collison, ' + type);
+      var player = Crafty.e('2D, Canvas, Color, Collision, ' + type);
       player.addComponent('Fourway').fourway(5);
       player.addComponent('Gravity').gravity('Ghost');
       player.bind('KeyDown', function(e) {
@@ -27,6 +27,15 @@ define(['crafty', 'costume'], function(Crafty) {
         }
       });
       player.addComponent('PlayerCostume');
+      player.onHit('Candy', function(hit) {
+        console.log('Got the Candy!');
+        for (var i = 0; i < hit.length; i++) {
+          var obj = hit[i].obj;
+          if (obj.has('Candy')) {
+            obj.destroy();
+          }
+        }
+      });
 
       return player;
     }
