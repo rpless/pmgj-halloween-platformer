@@ -9,7 +9,7 @@ define(['crafty', 'costume'], function(Crafty) {
   return {
     create: function(type) {
       var player = Crafty.e('2D, Canvas, Color, Collison, ' + type);
-      player.addComponent('Fourway').fourway(5);
+      player.addComponent('Fourway').fourway(10);
       player.addComponent('Gravity').gravity('Ghost');
       player.bind('KeyDown', function(e) {
         if (e.key === Crafty.keys.I) {
