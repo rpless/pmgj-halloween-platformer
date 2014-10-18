@@ -20,9 +20,12 @@ define(['crafty', 'costume'], function(Crafty) {
           this.changeCostume('Ghost');
           this.antigravity(['Spider', 'Pumpkin']);
           this.gravity('Ghost');
+        } else if (e.key === Crafty.keys.L) {
+          this.changeCostume('Spider');
+          this.antigravity(['Ghost', 'Pumpkin']);
+          this.gravity('Spider');
         }
       });
-
       player.addComponent('PlayerCostume');
 
       return player;
