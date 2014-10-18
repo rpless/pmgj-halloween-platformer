@@ -5,10 +5,10 @@ define(['crafty', 'costume'], function(Crafty) {
       return typeof key === 'string' && !!Crafty.keydown[Crafty.keys[key]];
     }
   });
-
+	  
   return {
     create: function(type) {
-      var player = Crafty.e('2D, Canvas, Color, Collison, ' + type);
+      var player = Crafty.e('2D, Canvas, Color, Collision, ' + type);
       player.addComponent('Fourway').fourway(5);
       player.addComponent('Gravity').gravity('Ghost');
       player.bind('KeyDown', function(e) {
@@ -22,9 +22,12 @@ define(['crafty', 'costume'], function(Crafty) {
           this.gravity('Ghost');
         }
       });
-
+      player.onHit('Enemy', function(hit){
+		if (hit[0].ob.has(this._cweak)){
+		
+		}
+	}
       player.addComponent('PlayerCostume');
-
       return player;
     }
   };
