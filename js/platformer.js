@@ -1,4 +1,5 @@
 define(['crafty', 'platformerScene'], function(Crafty, platformerScene) {
-  Crafty.init(800, 600, document.getElementById('game'));
+  var domElement = document.getElementById('game');
+  Crafty.init(Crafty.DOM.window.width, Crafty.DOM.window.height, domElement);
   platformerScene.start();
 });
