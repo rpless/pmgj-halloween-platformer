@@ -15,8 +15,12 @@ define(['crafty', 'levelLoader'], function(Crafty, levelLoader) {
     levelLoader('Level2', 'levels/level2', 'Level3');
     levelLoader('Level3', 'levels/level3', 'Level4');
     levelLoader('Level3', 'levels/level4', 'Level5');
-    levelLoader('Level3', 'levels/level5', 'Level3');
-    levelLoader('Level3', 'levels/level6');
+    levelLoader('Level3', 'levels/level5', 'Level6');
+    levelLoader('Level3', 'levels/level6', 'Level7');
+    levelLoader('Level3', 'levels/level7', 'Level8');
+    levelLoader('Level3', 'levels/level8', 'Level9');
+    levelLoader('Level3', 'levels/level9');
+
 
     Crafty.enterScene('Level1', { type: 'Ghost' });
   });
