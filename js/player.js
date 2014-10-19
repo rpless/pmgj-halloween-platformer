@@ -10,18 +10,19 @@ define(['crafty', 'costume'], function(Crafty) {
       this.requires('2D, Canvas, Color, Collision, Ghost, PlayerCostume, Keyboard');
       this.bind('EnterFrame', this._enterFrame);
       this.onHit('Candy', this._candyCollide);
+      this.bind('KeyDown', this._swapCostume);
     },
 
     _enterFrame: function() {
       if (this.isDown('A')) {
         this.x -= this._speed;
-        if (this.hit('Platform')) {
+        if (this._didHit()) {
           this.x += this._speed;
         }
       }
       if (this.isDown('D')) {
         this.x += this._speed;
-        if (this.hit('Platform')) {
+        if (this._didHit()) {
           this.x -= this._speed;
         }
       }
@@ -30,10 +31,10 @@ define(['crafty', 'costume'], function(Crafty) {
         this._canJump = false;
       }
       this._grav += this._gravConst;
-      if (!this.hit('Platform')) {
+      if (!this._didHit()) {
         this.y += this._grav;
         var resetGrav = false;
-        while (this.hit('Platform')) {
+        while (this._didHit()) {
           resetGrav = true;
           if (this._grav > 0) {
             this._canJump = true;
@@ -56,27 +57,19 @@ define(['crafty', 'costume'], function(Crafty) {
       }
     },
 
-    _adjustForCollision: function(hits, dir, size) {
-      var largestOverlap = 0;
-      var newValue = this.y;
-      for (var i = 0; i < hits.length; i++) {
-        var hitObj = hits[i].obj;
-        if (this.costume() === hitObj.costume()) {
-          var playerBottom = this.y + this.h;
-          var platformBottom = hitObj.y + hitObj.h;
-          if (hitObj.y < playerBottom && playerBottom < platformBottom && largestOverlap < playerBottom - hitObj.y) {
-            largestOverlap = Math.abs(playerBottom - hitObj.y);
-            newValue = (hitObj.y - largestOverlap) - this.h;
-            this._canJump = false;
-          } else if (this.y < platformBottom && platformBottom < playerBottom && largestOverlap < platformBottom - this.y) {
-            largestOverlap = Math.abs(platformBottom - this.y);
-            newValue = (this.y + largestOverlap);
+    _didHit: function() {
+      var hit = this.hit('Platform');
+      return hit && hit[0].obj.has(this.costume());
+    },
 
-          }
-        }
+    _swapCostume: function(e) {
+      if (e.key === Crafty.keys.I) {
+        this.changeCostume('Pumpkin');
+      } else if (e.key === Crafty.keys.J) {
+        this.changeCostume('Ghost');
+      } else if (e.key === Crafty.keys.L) {
+        this.changeCostume('Spider');
       }
-      if (this.y !== newValue) this._grav = 0;
-      this.y = newValue;
     },
 
     _candyCollide: function(hit) {
@@ -93,22 +86,6 @@ define(['crafty', 'costume'], function(Crafty) {
   return {
     create: function(type) {
       var player = Crafty.e('Player');
-      // player.addComponent('Gravity');
-      // player.bind('KeyDown', function(e) {
-      //   if (e.key === Crafty.keys.I) {
-      //     this.changeCostume('Pumpkin');
-      //     this.antigravity(['Spider', 'Ghost']);
-      //     this.gravity('Pumpkin');
-      //   } else if (e.key === Crafty.keys.J) {
-      //     this.changeCostume('Ghost');
-      //     this.antigravity(['Spider', 'Pumpkin']);
-      //     this.gravity('Ghost');
-      //   } else if (e.key === Crafty.keys.L) {
-      //     this.changeCostume('Spider');
-      //     this.antigravity(['Ghost', 'Pumpkin']);
-      //     this.gravity('Spider');
-      //   }
-      // });
 
       player.onHit('Enemy', function(hit) {
         if (hit[0].obj.has(this._cweak)) {

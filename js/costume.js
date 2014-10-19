@@ -32,12 +32,9 @@ define(['crafty'], function(Crafty) {
   createCostume('Ghost', '#00F','Pumpkin');
 
   Crafty.c('PlayerCostume', {
-    _current: this._costume,
-    _cweak:this._weak,
    changeCostume: function(type) {
-      this.removeComponent(this._current);
+      this.removeComponent(this._costume);
       this.addComponent(type);
-      this._current = type;
     }
   });
 });
