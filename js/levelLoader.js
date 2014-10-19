@@ -14,6 +14,7 @@ function(require, player, block, enemy) {
         var start= level.start;
         var end = level.end;
         Crafty.e('EndArea').attr({ x: end.x, y: end.y, w: 64, h: 64 });
+        Crafty.e('2D, Canvas, Image').image('assets/graveyard.png');
 
         var character = player.create(options.type || type).attr({ x: start.x, y: start.y - 64, w: 64, h: 64 });
         character.bind('Move', function() {
@@ -24,11 +25,11 @@ function(require, player, block, enemy) {
         character.onHit('EndArea', function() {
           Crafty.enterScene(transition, { type: character.costume() });
         });
-	character.onHit('Enemy', function(hit) {
-		if (hit[0].obj.has(character.weak())) {
-		Crafty.enterScene(name, { type: options.type || type });
-		}
-	});
+        character.onHit('Enemy', function(hit) {
+          if (hit[0].obj.has(character.weak())) {
+            Crafty.enterScene(name, { type: options.type || type });
+          }
+        });
 
         var platforms = level.platforms;
         if (platforms) {
@@ -42,7 +43,7 @@ function(require, player, block, enemy) {
               enemy.create(platform.costume, platform.w, x).attr({x: x+(platform.w/2), y: y-64, w: 64, h: 64 });
             }
           }
-	}
+        }
       });
     });
   };

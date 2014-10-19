@@ -5,8 +5,7 @@ define(['crafty'], function(Crafty) {
       _costume: name,
       _weak: weak,
       init: function() {
-        this.requires('2D, Canvas, Color');
-        this.color(color);
+        this.requires('2D, Canvas');
       },
 
       costume: function(type) {
