@@ -7,8 +7,24 @@ define(['crafty'], function(Crafty) {
       init: function() {
         this.requires('2D, Canvas, Color');
         this.color(color);
+      },
+
+      costume: function(type) {
+        if (type) {
+          this._costume = type;
+        } else {
+          return this._costume;
+        }
+      },
+
+      weak: function(type) {
+        if (type) {
+          this._weak = type;
+        } else {
+          return this._weak;
+        }
       }
-    },weak);
+    });
   };
 
   createCostume('Spider', '#F00','Ghost');
