@@ -16,7 +16,7 @@ define(['require', 'player', 'block'], function(require, player, block) {
         var character = player.create(options.type || type).attr({ x: start.x, y: start.y - 64, w: 64, h: 64 });
         character.bind('Move', function() {
           if (character.y > 1920) {
-            Crafty.enterScene(name, { type: type });
+            Crafty.enterScene(name, { type: options.type || type });
           }
         });
         character.onHit('EndArea', function() {
