@@ -1,4 +1,4 @@
-define(['crafty', 'costume'], function(Crafty) {
+define(['crafty', 'costume', 'Scroller'], function(Crafty) {
 
   Crafty.c('Player', {
     _grav: 0,
@@ -8,7 +8,7 @@ define(['crafty', 'costume'], function(Crafty) {
     _canJump: true,
 
     init: function() {
-      this.requires('2D, Canvas, Color, Collision, PlayerCostume, Keyboard');
+      this.requires('2D, Canvas, Color, Collision, PlayerCostume, Keyboard, ScrollView');
       this.bind('EnterFrame', this._enterFrame);
       this.onHit('Candy', this._candyCollide);
       this.bind('KeyDown', this._swapCostume);
