@@ -1,16 +1,8 @@
 define(['crafty', 'costume', 'Scroller'], function(Crafty) {
 
-  Crafty.sprite(64, 64, 'assets/orange_character_strip64.png', {
-    PumpkinSprite: [0, 0]
-  });
-
-  Crafty.sprite(64, 64, 'assets/spiderSpriteStrip.png', {
-    SpiderSprite: [0, 0]
-  });
-
-  Crafty.sprite(64, 64, 'assets/ghostSpriteStrip.png', {
-    SpiderSprite: [0, 0]
-  });
+  Crafty.sprite(64, 64, 'assets/allSprites_Stacked.png', {
+    CharacterSprite: [0, 0]
+  }, 25, 32);
 
   Crafty.c('Player', {
     _grav: 0,
@@ -20,12 +12,13 @@ define(['crafty', 'costume', 'Scroller'], function(Crafty) {
     _canJump: true,
 
     init: function() {
-      this.requires('2D, Canvas, Color, Collision, PlayerCostume, Keyboard, ScrollView, SpriteAnimation, PumpkinSprite');
+      this.requires('2D, Canvas, Color, Collision, PlayerCostume, Keyboard, ScrollView, SpriteAnimation, CharacterSprite');
       this.bind('EnterFrame', this._enterFrame);
       this.onHit('Candy', this._candyCollide);
       this.bind('KeyDown', this._swapCostume);
-      this.reel('Run', 1000, 0, 0, 5);
-      this.animate('Run', -1);
+      this.reel('PumpkinRun', 1000, 0, 0, 5);
+      this.reel('GhostRun', 1000, 0, 1, 5);
+      this.reel('SpiderRun', 1000, 0, 2, 5);
     },
 
     _enterFrame: function() {
@@ -76,25 +69,14 @@ define(['crafty', 'costume', 'Scroller'], function(Crafty) {
     _swapCostume: function(e) {
       if (e.key === Crafty.keys.UP_ARROW) {
         this.changeCostume('Pumpkin');
-        this.resetAnimation();
-        this.removeComponent('SpiderSprite');
-        this.removeComponent('GhostSprite');
-        this.addComponent('PumpkinSprite');
-        this.animate('Run', -1);
+        this.animate('PumpkinRun', -1);
       } else if (e.key === Crafty.keys.LEFT_ARROW) {
         this.changeCostume('Ghost');
-        this.resetAnimation();
-        this.removeComponent('SpiderSprite');
-        this.removeComponent('GhostSprite');
-        this.addComponent('GhostSprite');
-        this.animate('Run', -1);
+        this.animate('GhostRun', -1);
       } else if (e.key === Crafty.keys.RIGHT_ARROW) {
         this.changeCostume('Spider');
-        this.resetAnimation();
-        this.removeComponent('SpiderSprite');
-        this.removeComponent('GhostSprite');
-        this.addComponent('SpiderSprite');
-        this.animate('Run', -1);
+        this.changeCostume('Ghost');
+        this.animate('SpiderRun', -1);
       }
     },
 
@@ -113,6 +95,7 @@ define(['crafty', 'costume', 'Scroller'], function(Crafty) {
     create: function(type) {
       var player = Crafty.e('Player');
       player.addComponent(type);
+      player.animate(type + 'Run', -1);
       return player;
     }
   };
