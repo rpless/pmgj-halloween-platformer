@@ -1,4 +1,4 @@
-define(['crafty', 'costume'], function(Crafty) {
+define(['crafty', 'costume', 'Scroller'], function(Crafty) {
 
   Crafty.c('Player', {
     _grav: 0,
@@ -7,7 +7,7 @@ define(['crafty', 'costume'], function(Crafty) {
     _canJump: true,
 
     init: function() {
-      this.requires('2D, Canvas, Color, Collision, Ghost, PlayerCostume, Keyboard');
+      this.requires('2D, Canvas, Color, Collision, PlayerCostume, Keyboard, ScrollView');
       this.bind('EnterFrame', this._enterFrame);
       this.onHit('Candy', this._candyCollide);
       this.onHit('Enemy', this._enemyCollide);
@@ -64,11 +64,11 @@ define(['crafty', 'costume'], function(Crafty) {
     },
 
     _swapCostume: function(e) {
-      if (e.key === Crafty.keys.I) {
+      if (e.key === Crafty.keys.UP_ARROW) {
         this.changeCostume('Pumpkin');
-      } else if (e.key === Crafty.keys.J) {
+      } else if (e.key === Crafty.keys.LEFT_ARROW) {
         this.changeCostume('Ghost');
-      } else if (e.key === Crafty.keys.L) {
+      } else if (e.key === Crafty.keys.RIGHT_ARROW) {
         this.changeCostume('Spider');
       }
     },
@@ -78,25 +78,22 @@ define(['crafty', 'costume'], function(Crafty) {
       for (var i = 0; i < hit.length; i++) {
         var obj = hit[i].obj;
         if (obj.has('Candy')) {
-		
           obj.destroy();
-        }t
+        }
       }
     },
-    
-    _onHit('Enemy', function(hit) {
-        if (hit[0].obj.has(this.type.weak())) {
-		this.changeCostume('');
-	}
-    }
+
+    _enemyCollide: function(hit) {
+      if (hit[0].obj.has(this.weak())) {
+       
+      }
+    },
   });
 
   return {
     create: function(type) {
       var player = Crafty.e('Player');
-
-
-
+      player.addComponent(type);
       return player;
     }
   };

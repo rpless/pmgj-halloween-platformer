@@ -1,36 +1,32 @@
 define(['crafty'], function(Crafty) {
 
   Crafty.c('Enemy', {
-	  
-    _speed: 10,
+
+    _speed: 2,
     _pwidth: 0,
-    _cwidth:0;
-	  
+    _px: 0,
+
     init: function() {
       this.requires('2D, Canvas, Color');
       this.bind('EnterFrame', this._enterFrame);
     },
-    
+
     _enterFrame: function() {
-	
-	if (Math.round(Math.random()) && x-10 > this._cwidth){
-		this.x -= this._speed;
-		this._cwidth -= this._speed;
-		
-        }else if (x-10 < this._cwidth){
-		this.x += this._speed;
-		this._cwidth += this._speed
-	}
-}
-  })
+      if (Math.round(Math.random())  && this.x >  this._px){
+        this.x -= this._speed;
+    }else if ( this.x < (this._px + this._pwidth)){
+	this.x += this._speed;
+    }	    
+    }
+  });
 
   return {
-    create: function (type, pwidth) {
-      var e =Crafty.e('Enemy,'+type);
+    create: function (type, pwidth, px) {
+      var e =Crafty.e('Enemy, ' + type);
       e._pwidth = pwidth;
-      e._cwidth = pwidth/2;
+      e._px = px;
       return e;
-	    
+
     }
-  }
+  };
 });
