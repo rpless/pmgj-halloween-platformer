@@ -9,8 +9,11 @@ define(['crafty'], function(Crafty) {
 
     init: function() {
       this.requires('2D, Keyboard');
+      var width = this.viewport._width;
+      var height = this.viewport._height;
 
-      this.viewport.x = this.x + (Crafty.DOM.window.width / 4);
+      this.viewport.x = this.x + (width / 4);
+      this.viewport.y = this.y - (height / 4);
 
       this.bind('EnterFrame', function() {
         if (!this.resetView) {

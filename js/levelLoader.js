@@ -13,8 +13,9 @@ function(require, player, block, enemy) {
       require([url], function(level) {
         var start= level.start;
         var end = level.end;
-        Crafty.e('EndArea').attr({ x: end.x, y: end.y, w: 64, h: 64 });
+
         Crafty.e('2D, Canvas, Image').image('assets/graveyard.png');
+        Crafty.e('EndArea, 2D, Canvas, Color').attr({ x: end.x, y: end.y, w: 64, h: 64 }).color('#F00');
 
         var character = player.create(options.type || type).attr({ x: start.x, y: start.y - 64, w: 64, h: 64 });
         character.bind('Move', function() {

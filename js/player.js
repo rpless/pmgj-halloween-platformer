@@ -12,7 +12,7 @@ define(['crafty', 'costume', 'Scroller'], function(Crafty) {
     _canJump: true,
 
     init: function() {
-      this.requires('2D, Canvas, Color, Collision, PlayerCostume, Keyboard, ScrollView, SpriteAnimation, CharacterSprite');
+      this.requires('2D, Canvas, Collision, PlayerCostume, Keyboard, ScrollView, SpriteAnimation, CharacterSprite');
       this.bind('EnterFrame', this._enterFrame);
       this.onHit('Candy', this._candyCollide);
       this.bind('KeyDown', this._swapCostume);
@@ -75,7 +75,6 @@ define(['crafty', 'costume', 'Scroller'], function(Crafty) {
         this.animate('GhostRun', -1);
       } else if (e.key === Crafty.keys.RIGHT_ARROW) {
         this.changeCostume('Spider');
-        this.changeCostume('Ghost');
         this.animate('SpiderRun', -1);
       }
     },
