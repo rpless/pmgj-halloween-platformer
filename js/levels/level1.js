@@ -40,7 +40,7 @@ define(function() {
     "enemies": [
       { "x": 50, "y": 50, "costume": "Spider" }
     ],
-    "start": { "x": 96, "y": 544},
+    "start": { "x": 96, "y": 150},
     "end": { "x": 1792, "y": 800}
   };
 });

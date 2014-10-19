@@ -2,8 +2,9 @@ define(['crafty', 'costume'], function(Crafty) {
 
   Crafty.c('Player', {
     _grav: 0,
-    _gravConst: 0.2,
-    _speed: 10,
+    _gravConst: 0.4,
+    _speed: 5,
+    _jump: 12,
     _canJump: true,
 
     init: function() {
@@ -25,10 +26,6 @@ define(['crafty', 'costume'], function(Crafty) {
         if (this._didHit()) {
           this.x -= this._speed;
         }
-      }
-      if (this.isDown('W') && this._canJump) {
-        this._grav -= this._speed;
-        this._canJump = false;
       }
       this._grav += this._gravConst;
       if (!this._didHit()) {
@@ -53,7 +50,7 @@ define(['crafty', 'costume'], function(Crafty) {
       }
       if (this.isDown('W') && this._canJump) {
         this._canJump = false;
-        this._grav -= (this._speed / 2);
+        this._grav -= this._jump;
       }
     },
 
