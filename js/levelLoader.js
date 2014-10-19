@@ -25,8 +25,13 @@ function(require, player, block, enemy) {
           Crafty.enterScene(transition, { type: character.costume() });
         });
 	character.onHit('Enemy', function(hit) {
-		if (hit[0].obj.has(character.weak())) {
+		var obj = hit[0].obj;
+		if (obj.has(character.weak())) {
 		Crafty.enterScene(name, { type: options.type || type });
+		}else if (obj.has(character.costume())){
+			Crafty.enterScene(name, { type: options.type || type });
+		}else{
+			obj.destroy();
 		}
 	});
 
