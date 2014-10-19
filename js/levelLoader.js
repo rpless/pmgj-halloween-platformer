@@ -10,7 +10,7 @@ define(['require', 'player', 'block'], function(require, player, block) {
   return function(name, url, transition, type) {
     Crafty.defineScene(name, function(options) {
       require([url], function(level) {
-        var start = level.start;
+        var start= level.start;
         var end = level.end;
         Crafty.e('EndArea').attr({ x: end.x, y: end.y, w: 64, h: 64 });
 
