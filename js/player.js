@@ -8,7 +8,7 @@ define(['crafty', 'costume'], function(Crafty) {
     _canJump: true,
 
     init: function() {
-      this.requires('2D, Canvas, Color, Collision, Ghost, PlayerCostume, Keyboard');
+      this.requires('2D, Canvas, Color, Collision, PlayerCostume, Keyboard');
       this.bind('EnterFrame', this._enterFrame);
       this.onHit('Candy', this._candyCollide);
       this.bind('KeyDown', this._swapCostume);
@@ -82,7 +82,7 @@ define(['crafty', 'costume'], function(Crafty) {
 
   return {
     create: function(type) {
-      var player = Crafty.e('Player');
+      var player = Crafty.e('Player, ' + type);
 
       player.onHit('Enemy', function(hit) {
         if (hit[0].obj.has(this._cweak)) {
