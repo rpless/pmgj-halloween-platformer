@@ -32,10 +32,10 @@ define(['require', 'player', 'block'], function(require, player, block) {
             var y = platform.y - (platform.h / 2);
             var b = block.create(platform.costume).attr({ x: x, y: y, w: platform.w, h: platform.h });
             b.addComponent(platform.costume);
-	    	  if (platform.e === 1){
-		  enemy.create(platform.costume).attr({ x: x, y: y+32, w: 64, h: 64 });
+	    if (platform.e === 1){
+	   enemy.create(platform.costume).attr({ x: x, y: y+32, w: 64, h: 64 });
           }
-  }
+	}
         }
       });
     });

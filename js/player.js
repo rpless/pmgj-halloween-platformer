@@ -2,13 +2,12 @@ define(['crafty', 'costume'], function(Crafty) {
 
   Crafty.c('Player', {
     _grav: 0,
-    _gravConst: 0.4,
-    _speed: 5,
-    _jump: 12,
+    _gravConst: 0.2,
+    _speed: 10,
     _canJump: true,
 
     init: function() {
-      this.requires('2D, Canvas, Color, Collision, PlayerCostume, Keyboard');
+      this.requires('2D, Canvas, Color, Collision, Ghost, PlayerCostume, Keyboard');
       this.bind('EnterFrame', this._enterFrame);
       this.onHit('Candy', this._candyCollide);
       this.onHit('Enemy', this._enemyCollide);
@@ -27,6 +26,10 @@ define(['crafty', 'costume'], function(Crafty) {
         if (this._didHit()) {
           this.x -= this._speed;
         }
+      }
+      if (this.isDown('W') && this._canJump) {
+        this._grav -= this._speed;
+        this._canJump = false;
       }
       this._grav += this._gravConst;
       if (!this._didHit()) {
@@ -51,7 +54,7 @@ define(['crafty', 'costume'], function(Crafty) {
       }
       if (this.isDown('W') && this._canJump) {
         this._canJump = false;
-        this._grav -= this._jump;
+        this._grav -= (this._speed / 2);
       }
     },
 
@@ -61,11 +64,11 @@ define(['crafty', 'costume'], function(Crafty) {
     },
 
     _swapCostume: function(e) {
-      if (e.key === Crafty.keys.UP_ARROW) {
+      if (e.key === Crafty.keys.I) {
         this.changeCostume('Pumpkin');
-      } else if (e.key === Crafty.keys.LEFT_ARROW) {
+      } else if (e.key === Crafty.keys.J) {
         this.changeCostume('Ghost');
-      } else if (e.key === Crafty.keys.RIGHT_ARROW) {
+      } else if (e.key === Crafty.keys.L) {
         this.changeCostume('Spider');
       }
     },
@@ -75,13 +78,14 @@ define(['crafty', 'costume'], function(Crafty) {
       for (var i = 0; i < hit.length; i++) {
         var obj = hit[i].obj;
         if (obj.has('Candy')) {
+		
           obj.destroy();
-        }
+        }t
       }
     },
     
     _onHit('Enemy', function(hit) {
-        if (hit[0].obj.has(this._cweak)) {
+        if (hit[0].obj.has(this.type.weak())) {
 		this.changeCostume('');
 	}
     }
@@ -89,7 +93,7 @@ define(['crafty', 'costume'], function(Crafty) {
 
   return {
     create: function(type) {
-      var player = Crafty.e('Player, ' + type);
+      var player = Crafty.e('Player');
 
 
 
