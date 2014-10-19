@@ -10,6 +10,7 @@ define(['crafty', 'costume'], function(Crafty) {
       this.requires('2D, Canvas, Color, Collision, Ghost, PlayerCostume, Keyboard');
       this.bind('EnterFrame', this._enterFrame);
       this.onHit('Candy', this._candyCollide);
+      this.onHit('Enemy', this._enemyCollide);
       this.bind('KeyDown', this._swapCostume);
     },
 
@@ -80,6 +81,12 @@ define(['crafty', 'costume'], function(Crafty) {
           obj.destroy();
         }
       }
+    },
+    
+    _onHit('Enemy', function(hit) {
+        if (hit[0].obj.has(this._cweak)) {
+		this.changeCostume('');
+	}
     }
   });
 
@@ -87,10 +94,7 @@ define(['crafty', 'costume'], function(Crafty) {
     create: function(type) {
       var player = Crafty.e('Player');
 
-      player.onHit('Enemy', function(hit) {
-        if (hit[0].obj.has(this._cweak)) {
-		    }
-	    });
+
 
       return player;
     }
