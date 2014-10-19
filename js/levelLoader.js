@@ -24,6 +24,11 @@ function(require, player, block, enemy) {
         character.onHit('EndArea', function() {
           Crafty.enterScene(transition, { type: character.costume() });
         });
+	character.onHit('Enemy', function(hit) {
+		if (hit[0].obj.has(character.weak())) {
+		Crafty.enterScene(name, { type: options.type || type });
+		}
+	});
 
         var platforms = level.platforms;
         if (platforms) {

@@ -11,7 +11,6 @@ define(['crafty', 'costume', 'Scroller'], function(Crafty) {
       this.requires('2D, Canvas, Color, Collision, PlayerCostume, Keyboard, ScrollView');
       this.bind('EnterFrame', this._enterFrame);
       this.onHit('Candy', this._candyCollide);
-      this.onHit('Enemy', this._enemyCollide);
       this.bind('KeyDown', this._swapCostume);
     },
 
@@ -78,13 +77,7 @@ define(['crafty', 'costume', 'Scroller'], function(Crafty) {
           obj.destroy();
         }
       }
-    },
-
-    _enemyCollide: function(hit) {
-      if (hit[0].obj.has(this.weak())) {
-       
-      }
-    },
+    }
   });
 
   return {

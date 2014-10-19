@@ -14,7 +14,7 @@ define(['crafty'], function(Crafty) {
     _enterFrame: function() {
       if (Math.round(Math.random())  && this.x >  this._px){
         this.x -= this._speed;
-    }else if ( this.x < (this._px + this._pwidth)){
+    }else if ( this.x < (this._px + this._pwidth) - 64){
 	this.x += this._speed;
     }	    
     }
