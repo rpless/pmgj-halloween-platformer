@@ -60,11 +60,11 @@ define(['crafty', 'costume'], function(Crafty) {
     },
 
     _swapCostume: function(e) {
-      if (e.key === Crafty.keys.I) {
+      if (e.key === Crafty.keys.UP_ARROW) {
         this.changeCostume('Pumpkin');
-      } else if (e.key === Crafty.keys.J) {
+      } else if (e.key === Crafty.keys.LEFT_ARROW) {
         this.changeCostume('Ghost');
-      } else if (e.key === Crafty.keys.L) {
+      } else if (e.key === Crafty.keys.RIGHT_ARROW) {
         this.changeCostume('Spider');
       }
     },

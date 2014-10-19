@@ -1,8 +1,14 @@
 define(['require', 'player', 'block'], function(require, player, block) {
-  return function(levelName) {
-    require([levelName], function(level) {
+
+  return function(name, url) {
+    require([url], function(level) {
       var start = level.start;
-      player.create('Ghost').attr({ x: start.x, y: start.y, w: 64, h: 64 });
+      var character = player.create('Ghost').attr({ x: start.x, y: start.y, w: 64, h: 64 });
+      character.bind('Move', function() {
+        if (character.y > Crafty.DOM.window.height) {
+          Crafty.enterScene(name);
+        }
+      });
       var platforms = level.platforms;
       if (platforms) {
         for (var i = 0; i < platforms.length; i++) {
