@@ -27,10 +27,21 @@ define(['crafty', 'costume'], function(Crafty) {
         }
       });
       player.onHit('Enemy', function(hit) {
-        if (hit[0].ob.has(this._cweak)) {
+        if (hit[0].obj.has(this._cweak)) {
 		    }
-	    }
+	    });
       player.addComponent('PlayerCostume');
+
+      player.onHit('Candy', function(hit) {
+        console.log('Got the Candy!');
+        for (var i = 0; i < hit.length; i++) {
+          var obj = hit[i].obj;
+          if (obj.has('Candy')) {
+            obj.destroy();
+          }
+        }
+      });
+
       return player;
     }
   };
